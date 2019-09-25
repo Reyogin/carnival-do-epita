@@ -60,15 +60,29 @@ class ReyoginPlayer extends Player
             array_push($opplast10, $allopponentmoves[$i]);
         }
 
-        // Play scissors first
+        $opponentName = $this->result->getStatsFor($this->opponentSide)["name"];
+
+        // Play paper first (statistically wins more)
         if ($mylastmove == '0')
             return parent::paperChoice();
 
-        // coinflip to decide whether or not I should go for normal or reverse psychology
+        // Targetting Myxiur & ClaireHayard ==> Reverse psychology
+        if ($opponentName == "Myxiur" or $opponentName == "Clairehayard") {
+            switch ($mylastmove) {
+                case 'scissors':
+                    return $this->paperChoice();
+                case 'paper':
+                    return $this->rockChoice();
+                case 'rock':
+                    return $this->scissorsChoice();
+            }
+        }
+
+        // Coinflip to decide whether or not I should go for normal or reverse psychology
         $coinflip = rand(0,1);
 
         if ($coinflip == "0") {
-            // Reverse psychology : they are looking for my last moves to check against them, I'll pull one under their feet :p
+            // Reverse psychology : Play the move that would win against the counter of my last
             switch ($mylastmove) {
                 case 'scissors':
                     return $this->paperChoice();
