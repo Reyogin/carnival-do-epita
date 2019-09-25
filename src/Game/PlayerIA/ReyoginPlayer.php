@@ -40,6 +40,7 @@ class ReyoginPlayer extends Player
         // Lose = 0 ; Draw = 1; Win = 3
         //$this->prettyDisplay();
 
+        // Init and getting last results to build stats
         $roundNb = $this->result->getNbRound();
         $mylastmove = $this->result->getLastChoiceFor($this->mySide);
         $enemylastmove = $this->result->getLastChoiceFor($this->opponentSide);
@@ -63,14 +64,29 @@ class ReyoginPlayer extends Player
         if ($mylastmove == '0')
             return parent::scissorsChoice();
 
-        // Reverse psychology : they are looking for my last moves to check against them, I'll pull one under their feet :p
-        switch ($mylastmove){
-            case 'scissors':
-                return $this->paperChoice();
-            case 'paper':
-                return $this->rockChoice();
-            case 'rock':
-                return $this->scissorsChoice();
+        $coinflip = rand(0,1);
+
+        if ($coinflip == "0") {
+            // Reverse psychology : they are looking for my last moves to check against them, I'll pull one under their feet :p
+            switch ($mylastmove) {
+                case 'scissors':
+                    return $this->paperChoice();
+                case 'paper':
+                    return $this->rockChoice();
+                case 'rock':
+                    return $this->scissorsChoice();
+            }
+        }
+        else {
+            // Normal psychology
+            switch ($enemylastmove) {
+                case 'scissors':
+                    return $this->rockChoice();
+                case 'paper':
+                    return $this->scissorsChoice();
+                case 'rock':
+                    return $this->paperChoice();
+            }
         }
 
  /*       // Cases if I won
