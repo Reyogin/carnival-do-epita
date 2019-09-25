@@ -62,8 +62,9 @@ class ReyoginPlayer extends Player
 
         // Play scissors first
         if ($mylastmove == '0')
-            return parent::scissorsChoice();
+            return parent::paperChoice();
 
+        // coinflip to decide whether or not I should go for normal or reverse psychology
         $coinflip = rand(0,1);
 
         if ($coinflip == "0") {
@@ -78,7 +79,7 @@ class ReyoginPlayer extends Player
             }
         }
         else {
-            // Normal psychology
+            // Normal psychology : Play the moves that would win against their last
             switch ($enemylastmove) {
                 case 'scissors':
                     return $this->rockChoice();
@@ -88,44 +89,5 @@ class ReyoginPlayer extends Player
                     return $this->paperChoice();
             }
         }
-
- /*       // Cases if I won
-        if ($mylastresult == '5'){
-            // Case if opponent lost ==> Play what he did last
-            if ($enemylastresult == '0')
-                return $enemylastmove;
-
-            // opponent drew ==> random
-            if ($enemylastresult == '1')
-                return $this->paperChoice();
-
-            // Opponent won ==> play what beat his last
-            if ($enemylastmove == 'paper')
-                return parent::scissorsChoice();
-            if ($enemylastmove == 'scissors')
-                return parent::rockChoice();
-            return parent::paperChoice();
-        }
-        // Cases if I lost
-        elseif ($mylastresult == '0'){
-            //Opponent won ==> play what beat his last
-            if ($enemylastresult == '5') {
-                if ($enemylastmove == 'paper')
-                    return parent::scissorsChoice();
-                if ($enemylastmove == 'scissors')
-                    return parent::rockChoice();
-                return parent::paperChoice();
-            }
-
-            //Opponent drew ==> random
-            if ($enemylastresult == '1')
-                return $this->paperChoice();
-
-            //Opponent lost ==> play his last
-            return $enemylastmove;
-        }
-
-        return $this->paperChoice();
- */
     }
 }
