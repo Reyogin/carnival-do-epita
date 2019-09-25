@@ -39,8 +39,6 @@ class ReyoginPlayer extends Player
 
         // Lose = 0 ; Draw = 1; Win = 3
 
-        $this->prettyDisplay();
-
         $mylastmove = $this->result->getLastChoiceFor($this->mySide);
         $enemylastmove = $this->result->getLastChoiceFor($this->opponentSide);
 
