@@ -66,8 +66,8 @@ class ReyoginPlayer extends Player
         if ($mylastmove == '0')
             return parent::paperChoice();
 
-        // Targetting Myxiur & ClaireHayard ==> Reverse psychology
-        if ($opponentName == "Myxiur" or $opponentName == "Clairehayard") {
+        // Targetting Myxiur & ClaireHayard & Ridsar ==> Reverse psychology
+        if ($opponentName == "Myxiur" or $opponentName == "Clairehayard" or $opponentName == "Ridsar") {
             switch ($mylastmove) {
                 case 'scissors':
                     return $this->paperChoice();
