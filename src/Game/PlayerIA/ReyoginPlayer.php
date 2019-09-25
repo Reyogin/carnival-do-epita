@@ -38,19 +38,42 @@ class ReyoginPlayer extends Player
         // -------------------------------------    -----------------------------------------------------
 
         // Lose = 0 ; Draw = 1; Win = 3
+        //$this->prettyDisplay();
 
+        $roundNb = $this->result->getNbRound();
         $mylastmove = $this->result->getLastChoiceFor($this->mySide);
         $enemylastmove = $this->result->getLastChoiceFor($this->opponentSide);
 
         $mylastresult = $this->result->getLastScoreFor($this->mySide);
         $enemylastresult = $this->result->getLastScoreFor($this->opponentSide);
 
+        $allmymoves = $this->result->getChoicesFor($this->mySide);
+        $allopponentmoves = $this->result->getChoicesFor($this->opponentSide);
 
+        $last10 = array();
+        $opplast10 = array();
 
+        $startIndex = ($roundNb < 10 ) ? 0 : $roundNb - 10;
+        for ($i = $startIndex; $i < $roundNb; $i++){
+            array_push($last10, $allmymoves[$i]);
+            array_push($opplast10, $allopponentmoves[$i]);
+        }
+
+        // Play scissors first
         if ($mylastmove == '0')
             return parent::scissorsChoice();
 
-        // Cases if I won
+        // Reverse psychology : they are looking for my last moves to check against them, I'll pull one under their feet :p
+        switch ($mylastmove){
+            case 'scissors':
+                return $this->paperChoice();
+            case 'paper':
+                return $this->rockChoice();
+            case 'rock':
+                return $this->scissorsChoice();
+        }
+
+ /*       // Cases if I won
         if ($mylastresult == '5'){
             // Case if opponent lost ==> Play what he did last
             if ($enemylastresult == '0')
@@ -87,5 +110,6 @@ class ReyoginPlayer extends Player
         }
 
         return $this->paperChoice();
+ */
     }
 }
