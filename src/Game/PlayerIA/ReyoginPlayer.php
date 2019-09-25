@@ -78,6 +78,10 @@ class ReyoginPlayer extends Player
             }
         }
 
+        if ($opponentName == "Kmeliani") {
+            return $enemylastmove;
+        }
+
         // Coinflip to decide whether or not I should go for normal or reverse psychology
         $coinflip = rand(0,1);
 
