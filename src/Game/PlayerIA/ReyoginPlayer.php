@@ -45,6 +45,8 @@ class ReyoginPlayer extends Player
         $mylastresult = $this->result->getLastScoreFor($this->mySide);
         $enemylastresult = $this->result->getLastScoreFor($this->opponentSide);
 
+
+
         if ($mylastmove == '0')
             return parent::scissorsChoice();
 
@@ -55,14 +57,8 @@ class ReyoginPlayer extends Player
                 return $enemylastmove;
 
             // opponent drew ==> random
-            if ($enemylastresult == '1'){
-                $value = rand(1,3);
-                if ($value == 1)
-                    return parent::paperChoice();
-                elseif ($value == 2)
-                    return parent::rockChoice();
-                return parent::scissorsChoice();
-            }
+            if ($enemylastresult == '1')
+                return $this->paperChoice();
 
             // Opponent won ==> play what beat his last
             if ($enemylastmove == 'paper')
@@ -83,25 +79,13 @@ class ReyoginPlayer extends Player
             }
 
             //Opponent drew ==> random
-            if ($enemylastresult == '1'){
-                $value = rand(1,3);
-                if ($value == 1)
-                    return parent::paperChoice();
-                elseif ($value == 2)
-                    return parent::rockChoice();
-                return parent::scissorsChoice();
-            }
+            if ($enemylastresult == '1')
+                return $this->paperChoice();
 
             //Opponent lost ==> play his last
             return $enemylastmove;
         }
 
-        $value = rand(1,3);
-        if ($value == 1)
-            return parent::paperChoice();
-        elseif ($value == 2)
-            return parent::rockChoice();
-        return parent::scissorsChoice();
-
+        return $this->paperChoice();
     }
 }
